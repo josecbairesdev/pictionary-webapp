@@ -139,3 +139,41 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 ## License
 
 MIT 
+
+## Environment Configuration
+
+### Frontend
+
+The frontend uses Vite environment variables. To configure the backend URL, create a `.env` file in the `frontend` directory based on the provided example:
+
+```sh
+cp frontend/.env.example frontend/.env
+```
+
+Edit `frontend/.env` as needed:
+
+```
+VITE_BACKEND_URL=http://localhost:8000
+VITE_BACKEND_WS_URL=ws://localhost:8000
+```
+
+- `VITE_BACKEND_URL`: The HTTP URL for the FastAPI backend (used for REST API calls).
+- `VITE_BACKEND_WS_URL`: The WebSocket URL for the backend (used for real-time game events).
+
+### Backend
+
+The backend can be configured with environment variables as well. Create a `.env` file in the `backend` directory based on the provided example:
+
+```sh
+cp backend/.env.example backend/.env
+```
+
+Edit `backend/.env` as needed:
+
+```
+# ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+```
+
+- `ALLOWED_ORIGINS`: Comma-separated list of allowed origins for CORS (e.g., your frontend URLs).
+
+Both servers will automatically pick up these environment variables on startup. 

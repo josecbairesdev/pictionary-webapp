@@ -77,7 +77,8 @@ const Room: React.FC = () => {
 
   // Refactor connectWebSocket to take roomId and playerId as arguments
   const connectWebSocket = (roomId: string, playerId: string) => {
-    const ws = new WebSocket(`ws://localhost:8000/api/ws/${roomId}/${playerId}`);
+    const wsBase = import.meta.env.VITE_BACKEND_WS_URL || 'ws://localhost:8000';
+    const ws = new WebSocket(`${wsBase}/api/ws/${roomId}/${playerId}`);
     ws.onopen = () => {
       console.log('WebSocket connected');
       setIsConnected(true);
